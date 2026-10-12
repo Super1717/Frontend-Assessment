@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { veryableBlue } from "@/theme/globalStyles";
 
 interface SearchInputProps {
   onSearch: (value: string) => void;
@@ -23,10 +25,28 @@ export function SearchInput({
 
   return (
     <TextField
-      size="small"
-      label={label}
+      placeholder={label}
       value={value}
       onChange={(e) => setValue(e.target.value)}
+      slotProps={{
+        input: {
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon sx={{ color: veryableBlue }} />
+            </InputAdornment>
+          ),
+        },
+      }}
+      sx={{
+        width: 400,
+        bgcolor: "background.paper",
+        "& .MuiOutlinedInput-root": {
+          borderRadius: 3,
+          boxShadow: 1,
+          "&:hover fieldset": { borderColor: veryableBlue },
+          "&.Mui-focused fieldset": { borderColor: veryableBlue },
+        },
+      }}
     />
   );
 }

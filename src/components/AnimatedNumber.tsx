@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { keyframes } from "@mui/material/styles";
 
@@ -8,11 +8,9 @@ const settle = keyframes`
 `;
 
 export function AnimatedNumber({ value }: { value: number }) {
-  const prev = useRef(value);
-  const changed = prev.current !== value;
-  useEffect(() => {
-    prev.current = value;
-  });
+  const [state, setState] = useState({ value, changed: false });
+  if (state.value !== value) setState({ value, changed: true });
+  const { changed } = state;
 
   return (
     <Box

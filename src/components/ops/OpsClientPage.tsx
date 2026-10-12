@@ -11,11 +11,16 @@ const includes = (value: string, query: string) =>
   value.toLowerCase().includes(query);
 
 function filterOps(ops: Op[], search: string): Op[] {
-  const query = search.replace(/,/g, " ").trim().replace(/\s+/g, " ").toLowerCase();
+  const query = search
+    .replace(/,/g, " ")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
   if (!query) return ops;
 
   return ops.flatMap((op) => {
-    if (includes(op.opTitle, query) || includes(op.publicId, query)) return [op];
+    if (includes(op.opTitle, query) || includes(op.publicId, query))
+      return [op];
 
     const operators = op.operators.filter((o) =>
       [`${o.firstName} ${o.lastName}`, `${o.lastName} ${o.firstName}`].some(
@@ -40,10 +45,12 @@ export function OpsClientPage() {
 
   return (
     <Stack gap={2}>
-      <SearchInput
-        label="Search by operator name, op title or ID"
-        onSearch={setSearch}
-      />
+      <Stack direction="row" justifyContent="flex-end">
+        <SearchInput
+          label="Search by operator name, op title or ID"
+          onSearch={setSearch}
+        />
+      </Stack>
       {ops.length === 0 && <Typography>No ops found</Typography>}
       {ops.map((op) => (
         <OpCard key={op.publicId} op={op} />

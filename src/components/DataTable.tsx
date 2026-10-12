@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { veryableBlue } from "@/theme/globalStyles";
 import {
   Paper,
   Table,
@@ -69,7 +70,11 @@ export function DataTable<T>({
               <TableCell
                 key={i}
                 align={col.align}
-                sx={{ fontWeight: "bold" }}
+                sx={{
+                  fontWeight: "bold",
+                  bgcolor: "grey.100",
+                  borderBottom: `2px solid ${veryableBlue}`,
+                }}
                 sortDirection={sort?.column === i ? sort.direction : false}
               >
                 {col.sortValue ? (
@@ -101,7 +106,7 @@ export function DataTable<T>({
             </TableRow>
           )}
           {sortedRows.map((row) => (
-            <TableRow key={getRowId(row)}>
+            <TableRow key={getRowId(row)} hover>
               {columns.map((col, i) => (
                 <TableCell key={i} align={col.align}>
                   {col.render(row)}

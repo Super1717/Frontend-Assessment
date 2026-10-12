@@ -10,6 +10,7 @@ import { CheckInButton } from "./CheckInButton";
 import { Stack } from "@mui/material";
 import { formatDateTimeRange } from "@/utils/formatDateTimeRange";
 import { formatPercent } from "@/utils/formatPercent";
+import { pluralize } from "@/utils/pluralize";
 
 export function OpCard({ op }: { op: Op }) {
   const [operatorsNeeded, setOperatorsNeeded] = useState(op.operatorsNeeded);
@@ -21,7 +22,7 @@ export function OpCard({ op }: { op: Op }) {
         <div style={{ whiteSpace: "pre-line" }}>
           {`ID ${op.publicId} · `}
           <AnimatedNumber value={operatorsNeeded} />
-          {` operators needed\n${formatDateTimeRange(op.startTime, op.endTime)}`}
+          {` ${pluralize(operatorsNeeded, "operator", "operators")} needed\n${formatDateTimeRange(op.startTime, op.endTime)}`}
         </div>
       }
     >
