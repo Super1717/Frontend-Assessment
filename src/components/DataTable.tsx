@@ -11,6 +11,7 @@ import {
 export interface Column<T> {
   header: React.ReactNode;
   render: (row: T) => React.ReactNode;
+  align?: "left" | "right" | "center";
 }
 
 interface DataTableProps<T> {
@@ -22,11 +23,11 @@ interface DataTableProps<T> {
 export function DataTable<T>({ columns, rows, getRowId }: DataTableProps<T>) {
   return (
     <TableContainer component={Paper} variant="outlined">
-      <Table>
+      <Table sx={{ tableLayout: "fixed" }}>
         <TableHead>
           <TableRow>
             {columns.map((col, i) => (
-              <TableCell key={i} sx={{ fontWeight: "bold" }}>
+              <TableCell key={i} align={col.align} sx={{ fontWeight: "bold" }}>
                 {col.header}
               </TableCell>
             ))}
@@ -36,7 +37,9 @@ export function DataTable<T>({ columns, rows, getRowId }: DataTableProps<T>) {
           {rows.map((row) => (
             <TableRow key={getRowId(row)}>
               {columns.map((col, i) => (
-                <TableCell key={i}>{col.render(row)}</TableCell>
+                <TableCell key={i} align={col.align}>
+                  {col.render(row)}
+                </TableCell>
               ))}
             </TableRow>
           ))}
