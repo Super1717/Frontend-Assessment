@@ -1,6 +1,14 @@
+import { Header } from "@/components/Header";
 import { TestClientComponent } from "@/components/TestClientComponent";
-import { Stack, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 export default function Home() {
-  return <TestClientComponent />;
+  return (
+    <>
+      <Header />
+      <Box sx={{ mx: 8, mt: 4 }}>
+        <TestClientComponent />
+      </Box>
+    </>
+  );
 }
