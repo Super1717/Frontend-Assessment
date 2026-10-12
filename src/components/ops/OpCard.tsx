@@ -27,6 +27,8 @@ export function OpCard({ op }: { op: Op }) {
     >
       <DataTable
         rows={op.operators}
+        defaultSort={{ column: 2, direction: "desc" }}
+        emptyMessage="No operators found"
         getRowId={(operator) => {
           return op.opId + "-" + operator.id;
         }}
@@ -36,14 +38,18 @@ export function OpCard({ op }: { op: Op }) {
             render: (operator) => {
               return operator.lastName + ", " + operator.firstName;
             },
+            sortValue: (operator) =>
+              `${operator.lastName} ${operator.firstName}`,
           },
           {
             header: "Ops Completed",
             render: (operator) => operator.opsCompleted,
+            sortValue: (operator) => operator.opsCompleted,
           },
           {
             header: "Reliablility",
             render: (operator) => formatPercent(operator.reliability),
+            sortValue: (operator) => operator.reliability,
           },
           {
             header: "Endorsements",
